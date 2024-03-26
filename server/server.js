@@ -19,6 +19,16 @@ mongoose.connect(process.env.MONGODB_URI)
       console.error("MongoDB connection error:", err);
     });
 
+// Define Contact Model
+const ContactSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    phone: String
+});
+
+const Contact = mongoose.model('Contact', ContactSchema);
+
+
 // Start Server
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Server started on port ${port}`));
