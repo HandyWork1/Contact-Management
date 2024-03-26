@@ -28,6 +28,23 @@ const ContactSchema = new mongoose.Schema({
 
 const Contact = mongoose.model('Contact', ContactSchema);
 
+// API Routes
+app.post('/api/contacts', async (req, res) => {
+    // Create new contact object with user input 
+    const contact = new Contact({
+        name: req.body.name,
+        email: req.body.email,
+        phone: req.body.phone
+    });
+
+    try {
+        // Save the new contact object to the database
+        const newContact = await contact.save();
+        res.status(201).json(newContact);
+    } catch (err) {
+        res.status(400).json({ message: err.message });
+    }
+});
 
 // Start Server
 const port = process.env.PORT || 4000;
