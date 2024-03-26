@@ -29,6 +29,15 @@ const ContactSchema = new mongoose.Schema({
 const Contact = mongoose.model('Contact', ContactSchema);
 
 // API Routes
+app.get('/api/contacts', async (req, res) => {
+    try {
+        const contacts = await Contact.find();
+        res.json(contacts);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 app.post('/api/contacts', async (req, res) => {
     // Create new contact object with user input 
     const contact = new Contact({
